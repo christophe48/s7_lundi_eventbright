@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'faker'
 
 User.destroy_all
 Event.destroy_all
@@ -19,7 +20,7 @@ puts "User : #{Faker::Name.first_name}"
 end
 
 5.times do
-e << Event.create(start_date: Faker::Date.forward(days: 30), duration: chiffre_multiple_5.sample ,title: Faker::Book.title ,description: Faker::Lorem.sentence(word_count: 40) ,price: rand(1..1000) ,location: Faker::Address.city )
+e << Event.create(administrator: u.sample, start_date: Faker::Date.forward(days: 30), duration: chiffre_multiple_5.sample ,title: Faker::Book.title ,description: Faker::Lorem.sentence(word_count: 40) ,price: rand(1..1000) ,location: Faker::Address.city )
 puts "Event: #{Faker::Book.title}"
 end
 

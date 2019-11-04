@@ -1,6 +1,7 @@
 class Event < ApplicationRecord
   has_many :attendances
   has_many :users, through: :attendance
+  belongs_to :administrator, class_name: "User"
 
   validates :start_date, presence: {message:"La date de départ doit être renseignée"}
   validate :is_gone?
