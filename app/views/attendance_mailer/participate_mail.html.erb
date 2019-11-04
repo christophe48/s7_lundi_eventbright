@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Salut <%= @administrator.first_name %> !</h1>
+    <p>
+      <%= @user.first_name %> participe à votre évênement <%= @event.title %>.
+      Qui debutera le <%= @event.start_date %>
+
+      A bientôt!
+    </p>
+    <p>
+      Pour accéder à ton espace client, connecte-toi via : <%= @url %>.
+    </p>
+    <p> À très vite sur monsite.fr !
+  </body>
+</html>

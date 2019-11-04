@@ -6,8 +6,8 @@ class User < ApplicationRecord
   end
 
 
-  has_many :attendances
-  has_many :events, through: :attendance
+  has_many :attendances, dependent: :destroy
+  has_many :events, through: :attendance, dependent: :destroy
   has_many :administrator_events, foreign_key: "administrator_id", class_name: "Event", dependent: :destroy
 
   validates :email, format: { with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, message: "L'email doit être renseigné au bon format (email@eamil.email) !"},

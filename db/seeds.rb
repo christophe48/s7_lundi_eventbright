@@ -19,12 +19,12 @@ u << User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last
 puts "User : #{Faker::Name.first_name}"
 end
 
-5.times do
+1.times do
 e << Event.create(administrator: u.sample, start_date: Faker::Date.forward(days: 30), duration: chiffre_multiple_5.sample ,title: Faker::Book.title ,description: Faker::Lorem.sentence(word_count: 40) ,price: rand(1..1000) ,location: Faker::Address.city )
 puts "Event: #{Faker::Book.title}"
 end
 
-20.times do
+5.times do
 Attendance.create(user: u.sample, event: e.sample)
 puts  "Attendance: #{u.sample.first_name} participera à l'évenement #{e.sample.title}"
 end
