@@ -60,7 +60,7 @@
           <% else %>
         <div class="container">
           <h1 class="jumbotron-heading">Event Chris</h1>
-          <p class="lead text-muted">Bienvenue sur le site de tous les Event, <br> inscrit toi, <br>
+          <p class="lead text">Bienvenue sur le site de tous les Event, <br> inscrit toi, <br>
             participe à des évênements,<br>créer tes évênements <br> et VIE TA VIE DE ROCKSTAR</p>
         </div>
         <% end %>
@@ -80,9 +80,10 @@
                 <p class="card-text"><small class="text-muted"> Date de fin de l'évènement: <%=t.start_date + t.duration*60 %> </small></p>
                 <p class="card-text"><small class="text-muted"> Nombre de participant: <%=@attendances.where(user_id: t.id).count %> </small></p>
                 <button type="button"> <%=link_to "Voir plus", event_path(t.id) %> </button>
-                <% if compare(t.administrator_id, current_user.id) %>
+                <% if user_signed_in? && compare(t.administrator_id, current_user.id) %>
                 <button type="button" class="btn btn-sm btn-outline-secondary"><%=link_to "Edit", edit_event_path(t.id) %></button>
                 <button type="button" class="btn btn-sm btn-danger text-color:black"><%=link_to "Supprimer", event_path(t.id), method: :delete, data: {confirm: "êtes vous sur de vouloir supprimer cette évênement?"} %></button>
+                <% else %>
                 <% end %>
               </div>
             </div>

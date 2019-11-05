@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
     before_action :authenticate_user!, only: [:show,:new,:create,:edit,:update,:destroy]
+
   def index
     @events = Event.all
     @attendances = Attendance.all
