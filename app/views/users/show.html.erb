@@ -1,16 +1,29 @@
-<!-- Profile info -->
+<style>
+body
+{background-image: url('http://4everstatic.com/images/abstrait/fond-de-couleur-220805.jpg');
+   background-repeat: no-repeat;
+   background-size:cover;
+   background-attachment:fixed;}
+</style>
 
-<div class ='align-middle'>
-  <div class="card mt-5 ml-5 mr-5 p-4">
-    <div class="card-body">
-      <h5 class="card-title"><%= current_user.first_name %> <%= current_user.last_name %></h5>
-      <p class="card-title"><strong>Bio : </strong><%= current_user.description %></p>
-      <p class="card-title"><strong>Mail : </strong> <%= current_user.email %></p>
-      <p class="card-title"><strong>Profile created on : </strong><%= current_user.created_at.strftime("%d/%m/%Y") %></p>
-      <p class="card-text"> <strong>Last update on : </strong><%= current_user.updated_at.strftime("%d/%m/%Y") %></p>
-    </div>
-  </div>
-</div>
+<body>
+<center>
+  <% if flash[:success] %>
+ <div class="alert alert-success" role="alert">
+ <div class="success"><%= flash[:success]%></div>
+ </div>
+<% end %>
+<br><br>
+<div class="card card p-3 shadow" style="width: 18rem;">
+  <img class="card-img-top" src="https://img.huffingtonpost.com/asset/5da6cd98210000140f34a123.jpeg?cache=kQdUrib9K7&ops=scalefit_630_noupscale" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title"><%= current_user.first_name %> <%= current_user.last_name %></h5>
+    <p class="card-title"><strong>Bio : </strong><%= current_user.description %></p>
+    <p class="card-title"><strong>Mail : </strong> <%= current_user.email %></p>
+    <p class="card-title"><strong>Profile created on : </strong><%= current_user.created_at.strftime("%d/%m/%Y") %></p>
+    <p class="card-text"> <strong>Last update on : </strong><%= current_user.updated_at.strftime("%d/%m/%Y") %></p>
+
+
 
 <%= link_to 'Edit', edit_user_registration_path %> |
 <%= link_to 'Back', users_path %>
