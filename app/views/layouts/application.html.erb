@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TheGossipProject</title>
+    <title>The Event Chris</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -39,7 +39,7 @@
           Mon profil
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" <%= link_to "Mon profil", static_pages_secret_path %></a>
+          <a class="dropdown-item" <%= link_to "Mon profil", user_path(current_user.id) %></a>
           <a class="dropdown-item" href="#"></a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item"   <%= link_to "Deconnexion", destroy_user_session_path, method: :delete %></a>

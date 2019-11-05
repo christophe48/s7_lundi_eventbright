@@ -15,11 +15,11 @@ e = []
 chiffre_multiple_5 = [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100]
 
 10.times do
-u << User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, description: Faker::Lorem.sentence(word_count: 20), email: Faker::Name.first_name + "@yopmail.com", encrypted_password: "fauxuser")
+u << User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, description: Faker::Lorem.sentence(word_count: 20), email: Faker::Name.first_name + "@yopmail.com", password: "fauxuser")
 puts "User : #{Faker::Name.first_name}"
 end
 
-1.times do
+5.times do
 e << Event.create(administrator: u.sample, start_date: Faker::Date.forward(days: 30), duration: chiffre_multiple_5.sample ,title: Faker::Book.title ,description: Faker::Lorem.sentence(word_count: 40) ,price: rand(1..1000) ,location: Faker::Address.city )
 puts "Event: #{Faker::Book.title}"
 end

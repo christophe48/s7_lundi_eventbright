@@ -1,10 +1,55 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Crée ton Event !</title>
-  </head>
-  <body>
+<style>
+body
+{background-image: url('http://4everstatic.com/images/abstrait/fond-de-couleur-220805.jpg');
+   background-repeat: no-repeat;
+   background-size:cover;
+   background-attachment:fixed;}
+</style>
 
-  </body>
-</html>
+<body>
+<center>
+    <!-- ... -->
+<br/><br/>
+<% if @event.errors.any? %>
+      <p>Nous n'avons pas réussi à créer le potin pour la (ou les) raison(s) suivante(s) :</p>
+      <ul>
+        <% @event.errors.full_messages.each do |message| %>
+          <li style="color:red;"><%= message %></li>
+        <% end %>
+      </ul>
+<% end %>
+
+<p> Creer ton Evenement </p>
+    <%= form_tag url_for(action: 'create'), method: "post" do %>
+
+      <%= label_tag "Titre de l'évênement" %>
+      <%= text_field_tag 'title' %>
+      <br /> <br />
+
+      <%= label_tag 'Date' %>
+      <%= text_field_tag 'start_date' %>
+      <br /> <br />
+
+      <%= label_tag 'Durée' %>
+      <%= text_field_tag 'duration' %>
+      <br /> <br />
+
+      <%= label_tag 'Lieu' %>
+      <%= text_field_tag 'location' %>
+      <br /> <br />
+
+      <%= label_tag 'Prix' %>
+      <%= text_field_tag 'price' %>
+      <br /> <br />
+
+      <%= label_tag 'description:' %>
+      <%= text_area_tag 'description' %>
+      <br /> <br />
+
+      <%= submit_tag "Creation de l'Event" %>
+
+    <% end %>
+
+    <!-- ... -->
+</center>
+</body>
