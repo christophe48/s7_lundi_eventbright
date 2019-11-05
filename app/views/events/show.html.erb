@@ -1,11 +1,35 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title> <%= @event.title %> </title>
-  </head>
-  <h1> <%= @event.title %> </h1>
-  <body>
+<style>
+body
+{background-image: url('http://4everstatic.com/images/abstrait/fond-de-couleur-220805.jpg');
+   background-repeat: no-repeat;
+   background-size:cover;
+   background-attachment:fixed;}
+</style>
 
-  </body>
-</html>
+<body>
+  <br><br>
+  <center>
+  <% h = @event.administrator_id %>
+    <div class="card text-center mx-auto" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title"><%= @event.title %></h5>
+        <h6 class="card-subtitle mb-2 text-muted"><%=@event.created_at.strftime("%d/%m/%Y") %></h6>
+        <h6 class="card-subtitle mb-2 text-muted">modifié le: <%=@event.updated_at.strftime("%d/%m/%Y")%></h6>
+        <h6 class="card-subtitle mb-2 text-muted">Crée par: <%= @user.find(@event.administrator_id).first_name %> </h6>
+        <p class="card-text"><%= @event.description %></p>
+        <p class="card-text"> Lieu: <%= @event.location %></p>
+        <p class="card-text"> Durée: <%= @event.duration %> min</p>
+        <p class="card-text"> Date: <%= @event.start_date %> </p>
+        <p class="card-text"> Date de fin de l'évènement: <%=@event.start_date + @event.duration*60 %> </p>
+        <p class="card-text"> Prix <%= @event.price %> €</p>
+        <p class="card-text"><small class="text-muted"> Nombre de participant: <%=@attendances.where(user_id: @event.id).count %> </small></p>
+
+
+        <% if compare(@event.administrator_id, current_user.id) %>
+        <button type="button" class="btn btn-sm btn-outline-secondary"><%=link_to "Edit", edit_event_path(@event.id) %></button>
+        <button type="button" class="btn btn-sm btn-danger text-color:black"><%=link_to "Supprimer", event_path(@event.id), method: :delete, data: {confirm: "êtes vous sur de vouloir supprimer cette évênement?"}%></button>
+
+       <%end%>
+       <br /><br />
+  </center>
+</body>

@@ -23,12 +23,16 @@ class Event < ApplicationRecord
 
   def multiple_of_5?
     #c'est une erreur tant que c'est pas la vérité
+    if self.duration != nil
     errors.add(:duration, "La duree doit etre un multiple de 5 !") unless
     self.duration % 5 == 0
+    end
   end
 
   def is_gone?
+    if self.start_date != nil
     erros.add(:start_date, " Tu ne peux pas modifier ou créer une évênement dans le passé.") unless
     self.start_date >  Time.now
-  end
+    end
+  end 
 end

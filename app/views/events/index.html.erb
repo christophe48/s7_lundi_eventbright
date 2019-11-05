@@ -66,32 +66,31 @@
         <% end %>
       </section>
 
-      <div class="album py-5 bg-light">
-        <div class="container mx-auto">
-          <div class="row justify-content-center">
-            <% @events.each do |t| %>
-            <div class="col-sm-6 pt-2">
-              <div class="card card p-3 shadow" style="width: 18rem;">
-                <img class="card-img-top" src="https://assets-global.website-files.com/5b7918ae4c34866ca737694c/5d47be1acc4d3a3adfb873b7_event-info.jpg" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text"><%= t.title %> </p>
-                  <p class="card-text"><%= t.description %> </p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" <%=link_to "Voir plus", event_path(t) %> </button>
-                      <% if current_user.id == @adminsitrator_id %>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                      <% end %>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
+      <div class="card-columns container mx-auto">
+        <% @events.each do |t| %>
+          <center>
+            <div class="card shadow" style="width: 20rem; padding-bottom:10px; border-color:#781D47;">
+              <img class="card-img-top" src="https://assets-global.website-files.com/5b7918ae4c34866ca737694c/5d47be1acc4d3a3adfb873b7_event-info.jpg" alt="Card image cap">
+              <div class="card-body">
+                <a style="color: #781D47; " class="card-title" href="http://localhost:3000/events/<%=t.id%>"> <%=t.title %></a>
+                <p class="card-text"> Description : <%= t.description  %></p>
+                <p class="card-text"> Prix : <%= t.price  %> €</p>
+                <p class="card-text"><small class="text-muted"> Date de l'évènement: <%= t.start_date %></small></p>
+                <p class="card-text"><small class="text-muted"> Durée de l'évènement: <%= t.duration %> min </small></p>
+                <p class="card-text"><small class="text-muted"> Date de fin de l'évènement: <%=t.start_date + t.duration*60 %> </small></p>
+                <p class="card-text"><small class="text-muted"> Nombre de participant: <%=@attendances.where(user_id: t.id).count %> </small></p>
+                <button type="button"> <%=link_to "Voir plus", event_path(t.id) %> </button>
+                <% if compare(t.administrator_id, current_user.id) %>
+                <button type="button" class="btn btn-sm btn-outline-secondary"><%=link_to "Edit", edit_event_path(t.id) %></button>
+                <button type="button" class="btn btn-sm btn-danger text-color:black"><%=link_to "Supprimer", event_path(t.id), method: :delete, data: {confirm: "êtes vous sur de vouloir supprimer cette évênement?"} %></button>
+                <% end %>
               </div>
             </div>
-          </div>
-          <% end %>
-        </div>
+            <br>
+          </center>
+        <%end %>
       </div>
+
 
     </main>
 
