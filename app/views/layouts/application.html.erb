@@ -68,6 +68,10 @@
 <div class="alert alert-danger" role="alert">
 <div class="danger text-center"><%= flash.now[:danger]%></div>
 </div>
+<% elsif flash[:error] %>
+<div class="alert alert-danger" role="alert">
+<div class="danger text-center"><%= flash[:error]%></div>
+</div>
 <% else %>
 <% end %>
 
