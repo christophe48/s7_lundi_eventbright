@@ -21,10 +21,27 @@ body
         <p class="card-text"> Durée: <%= @event.duration %> min</p>
         <p class="card-text"> Date: <%= @event.start_date %> </p>
         <p class="card-text"> Date de fin de l'évènement: <%=@event.start_date + @event.duration*60 %> </p>
-        <p class="card-text"> Prix <%= @event.price %> €</p>
         <p class="card-text"><small class="text-muted"> Nombre de participant: <%=@attendances.where(user_id: @event.id).count %> </small></p>
 
-        <button type="button" class="btn btn-sm btn-outline-secondary"><%=link_to "Participer!", inscription_path %></button>
+        <%= form_tag inscription_path do %>
+          <article>
+            <% if flash[:error].present? %>
+              <div id="error_explanation">
+                <p><%= flash[:error] %></p>
+              </div>
+            <% end %>
+            <label class="amount">
+              <span>Prix: <%=@event.price %> €</span>
+            </label>
+          </article>
+
+          <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                  data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                  data-description="Paiement pour participer à l'évênement"
+                  data-amount="<%= @event.price.to_f * 100 %>"
+                  data-currency="eur"
+                  data-locale="auto"></script>
+        <% end %>
 
 
         <% if compare(@event.administrator_id, current_user.id) %>

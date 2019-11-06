@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :events
   resources :users
   resources :attendances
-  get "events/:id/attendances", to: "attendances#new", as: "inscription"
+  post "events/:id/attendances", to: "attendances#new", as: "inscription"
   resources :charges, only:[:new, :create]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

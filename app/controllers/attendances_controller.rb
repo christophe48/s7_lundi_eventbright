@@ -7,13 +7,18 @@ class AttendancesController < ApplicationController
 
   def new
     @event = Event.find(params[:id])
+    create
   end
 
   def create
     # Amount in cents
     @event = Event.find(params[:id])
+    @attendances = Attendance.all
+    
+    @attendance = Attendance.new(user_id: current_user.id, event_id: @event.id)
 
-    if @event.attendances_include? current_user
+
+    if attendances_include?
       flash[:error] = "Vous participez déjà à #{@event.title}"
       redirect_to @event
     end
@@ -35,8 +40,8 @@ class AttendancesController < ApplicationController
     })
 
     @attendance = Attendance.new(user_id: current_user.id, event_id: @event.id, stripe_customer_id: customer.id)
+    @attendance = Attendance.save
     flash[:success] = "Vous êtes bien inscrit à #{@event.title}"
-    redirect_to @event
 
   rescue Stripe::CardError => e
     flash[:error] = e.message
