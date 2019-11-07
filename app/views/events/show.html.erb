@@ -21,8 +21,9 @@ body
         <p class="card-text"> Durée: <%= @event.duration %> min</p>
         <p class="card-text"> Date: <%= @event.start_date %> </p>
         <p class="card-text"> Date de fin de l'évènement: <%=@event.start_date + @event.duration*60 %> </p>
-        <p class="card-text"><small class="text-muted"> Nombre de participant: <%=@attendances.where(user_id: @event.id).count %> </small></p>
+        <p class="card-text"><small class="text-muted"> Nombre de participant: <%=@attendances.where(event_id: @event.id).count %> </small></p>
 
+        <% if attendances_include?(@event,@attendances) %>
         <%= form_tag inscription_path do %>
           <article>
             <% if flash[:error].present? %>
@@ -42,7 +43,7 @@ body
                   data-currency="eur"
                   data-locale="auto"></script>
         <% end %>
-
+        <%end %>
 
         <% if compare(@event.administrator_id, current_user.id) %>
         <button type="button" class="btn btn-sm btn-outline-secondary"><%=link_to "Edit", edit_event_path(@event.id) %></button>

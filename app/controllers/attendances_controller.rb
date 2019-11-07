@@ -14,15 +14,6 @@ class AttendancesController < ApplicationController
     # Amount in cents
     @event = Event.find(params[:id])
     @attendances = Attendance.all
-    
-    @attendance = Attendance.new(user_id: current_user.id, event_id: @event.id)
-
-
-    if attendances_include?
-      flash[:error] = "Vous participez déjà à #{@event.title}"
-      redirect_to @event
-    end
-
 
     @amount = @event.price
     @user=current_user
@@ -32,16 +23,18 @@ class AttendancesController < ApplicationController
       source: params[:stripeToken],
     })
 
-    charge = Stripe::Charge.create({
+   charge = Stripe::Charge.create({
       customer: customer.id,
       amount: @amount,
       description: 'Paiement de #{@user.first_name} #{@user.last_name}',
       currency: 'eur',
     })
 
+    if charge
     @attendance = Attendance.new(user_id: current_user.id, event_id: @event.id, stripe_customer_id: customer.id)
-    @attendance = Attendance.save
+    @attendance.save
     flash[:success] = "Vous êtes bien inscrit à #{@event.title}"
+    end
 
   rescue Stripe::CardError => e
     flash[:error] = e.message
